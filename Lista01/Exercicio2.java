@@ -1,6 +1,6 @@
 package Lista01;
 import java.util.Scanner;
-public class Exercício2 {
+public class Exercicio2 {
 
 	public static void main(String[] args) {
 		Scanner leitor = new Scanner(System.in);
