@@ -61,6 +61,7 @@ public class Exercicio1 {
 	
 	public static int[] VetorCrescente(int[] vetor) {
 		int aux;
+		
 		for(int i=0; i<vetor.length-1;i++) {
 			if(vetor[i]>vetor[i+1]) {
 				aux=vetor[i+1];
