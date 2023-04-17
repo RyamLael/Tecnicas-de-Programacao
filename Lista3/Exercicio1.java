@@ -26,7 +26,6 @@ public class Exercicio1 {
 		}
 		
 		return media=soma/tamvetores;
-		
 	}
 	
 	public static float MediaPonderada(float[] vetvalores, float [] vetpesos) {
