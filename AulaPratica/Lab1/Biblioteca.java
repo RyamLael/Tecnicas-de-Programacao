@@ -5,9 +5,7 @@ import java.util.ArrayList;
 public class Biblioteca {
 	//posso tirar esse public clientes e publicacoes
 	
-	public float totalTps;
-   // public Publicacoes publicacao;
-    //public Clientes cliente;
+    public float totalTps;
     public DadosEmprestimos dadosEmprestimo;
     public ArrayList<DadosEmprestimos> listaEmprestimos;
     public ArrayList<Publicacoes> listaPublicacoes;
@@ -51,13 +49,13 @@ public class Biblioteca {
 					        cliente.publicacoesemPosse.add(publicacoes);
 					    	dadosEmprestimo.cliente=cliente;
 					    	listaEmprestimos.add(dadosEmprestimo);				 
-    				  }
+    				 	 }
     					else
     						System.out.println("Você já alugou o máximo de livros permitidos! Devolva uma publicação para continuar.");
+    					}
     				}
     			}
-    		}
-    	}
+		}
     }
  
     public float Desconto(Publicacoes publicacao){
@@ -81,7 +79,7 @@ public class Biblioteca {
     			System.out.println("\nO título da publicação é: "+publicacoes.Titulo+"\nO autor é: "+publicacoes.Autor+"\nO ano de publicacao é: "+publicacoes.AnoDePublicacao+
     					"\nA quantidade disponível do exemplar é: "+ publicacoes.QuantDisponivel);
      		}
-		}
+	}
     }
 
 	public void colsultaMatricula(String Matricula) {
