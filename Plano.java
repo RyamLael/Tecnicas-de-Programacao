@@ -15,7 +15,7 @@ public class Plano {
 		this.tamanhoX=tamanhoX;
 		this.tamanhoY=tamanhoY;
 		
-		celulasPercorridas= new ArrayList<CelulaPercorrida>();
+		celulasPercorridas = new ArrayList<CelulaPercorrida>();
 		CelulaPercorrida celulanula= new CelulaPercorrida(0,0,0);
 		celulasPercorridas.add(celulanula);
 		
@@ -33,8 +33,8 @@ public class Plano {
 		listaCelulas.add(celula0);
 		
 		contador=1;
-		for(int y=1; y<=this.tamanhoX; y++) {
-			for(int x=1; x<=this.tamanhoY;x++) {
+		for(int y=1; y<=this.tamanhoY; y++) {
+			for(int x=1; x<=this.tamanhoX;x++) {
 				Celula celula = new Celula(x, y, contador);
 				listaCelulas.add(celula);
 				contador++;
@@ -82,11 +82,7 @@ public class Plano {
 		}
 	}
 	
-	public void adicionarDirecao(String direcao) {
-		celulasPercorridas.get(verificarRobo()).roboPassou=true;
-		celulasPercorridas.get(verificarRobo()).direcao=direcao;
-	}
-	
+
 	public void listarPosicoes() {
 		for(int i=1; i<=listaCelulasSize();i++ ) {
 			System.out.println(listaCelulas.get(i).imprimir());
@@ -103,15 +99,16 @@ public class Plano {
 				j=0;
 				i=listaCelulasSize()+k*(-tamanhoX)+1;
 			}
-			if(verificarRobo()==i) 
+			if(encontrarRobo()==i) 
 				System.out.printf("[R] ");
-			else if(verificarMoeda()==i)
+			else if(encontrarMoeda()==i)
 				System.out.printf("[$] ");
 			else if(i>=1)
 				System.out.printf("[ ] ");
 		}
 		System.out.println("\n");
 	}
+	
 	
 	public void mostrarRastrodoRobo() {
 		for(int k=1, j=0, i=celulasPercorridasSize()-tamanhoX+1; i>1; j++,i++) {
@@ -121,9 +118,9 @@ public class Plano {
 				j=0;
 				i=celulasPercorridasSize()+k*(-tamanhoX)+1;
 			}
-			if(verificarRobo()==i) 
+			if(encontrarRobo()==i) 
 				System.out.printf("[R] ");
-			else if(verificarMoeda()==i)
+			else if(encontrarMoeda()==i)
 				System.out.printf("[$] ");
 			else if(i>=1 && celulasPercorridas.get(i).roboPassou==true) 
 				System.out.printf("[*] ");
@@ -135,18 +132,40 @@ public class Plano {
 	}
 	
 	
+	public int caminhoparaMoedaX() {
+		
+		if(listaCelulas.get(encontrarMoeda()).posx > listaCelulas.get(encontrarRobo()).posx)
+			return listaCelulas.get(encontrarMoeda()).posx - listaCelulas.get(encontrarRobo()).posx;
+		
+		else if(listaCelulas.get(encontrarMoeda()).posx < listaCelulas.get(encontrarRobo()).posx)
+			return listaCelulas.get(encontrarMoeda()).posx - listaCelulas.get(encontrarRobo()).posx;
+		return 0;
+	}
+	
+	//esse menos serve para passar uma informação binária juntamente com a informaçao em forma de inteiro
+	public int caminhoparaMoedaY() {
+		
+		if(listaCelulas.get(encontrarMoeda()).posy > listaCelulas.get(encontrarRobo()).posy)
+			return listaCelulas.get(encontrarMoeda()).posy - listaCelulas.get(encontrarRobo()).posy;
+		
+		else if(listaCelulas.get(encontrarMoeda()).posy < listaCelulas.get(encontrarRobo()).posy)
+			return listaCelulas.get(encontrarMoeda()).posy - listaCelulas.get(encontrarRobo()).posy;
+		return 0;
+	
+	}
+	
+	
 	//verifica se há um robo na lista de células; e retorna o id da célula
-	public int verificarRobo() {
+	public int encontrarRobo() {
 		for(int id=1; id<=listaCelulasSize(); id++) {
 			if(listaCelulas.get(id).robo!=null) {
 				return id;
-				//Celula aux=listaCelulas.get(i);
 			}
 		}
 		return 0;
 	}
 	
-	public int verificarMoeda() {
+	public int encontrarMoeda() {
 		for(int id=1; id<=listaCelulasSize(); id++) {
 			if(listaCelulas.get(id).moeda!=null) {
 				return id;
@@ -177,6 +196,13 @@ public class Plano {
 		return 0;
 	}
 	
+	
+	public void adicionarDirecao(String direcao) {
+		celulasPercorridas.get(encontrarRobo()).roboPassou=true;
+		celulasPercorridas.get(encontrarRobo()).direcao=direcao;
+	}
+	
+	
 	public int quantCasasPercorridas() {
 		int quantidadePercorrida=0;
 		for(int i=0; i<=celulasPercorridasSize();i++) {
@@ -186,31 +212,11 @@ public class Plano {
 		return quantidadePercorrida;
 	}
 	
+	
 	public int quantCasasRestantes() {
 		return (listaCelulasSize()- quantCasasPercorridas());
 	}
-
-	public int caminhoparaMoedaX() {
-		
-		if(listaCelulas.get(verificarMoeda()).posx > listaCelulas.get(verificarRobo()).posx)
-			return listaCelulas.get(verificarMoeda()).posx - listaCelulas.get(verificarRobo()).posx;
-		
-		else if(listaCelulas.get(verificarMoeda()).posx < listaCelulas.get(verificarRobo()).posx)
-			return listaCelulas.get(verificarMoeda()).posx - listaCelulas.get(verificarRobo()).posx;
-		return 0;
-	}
 	
-	//esse menos serve para passar uma informação binária juntamente com a informaçao em forma de inteiro
-	public int caminhoparaMoedaY() {
-		
-		if(listaCelulas.get(verificarMoeda()).posy > listaCelulas.get(verificarRobo()).posy)
-			return listaCelulas.get(verificarMoeda()).posy - listaCelulas.get(verificarRobo()).posy;
-		
-		else if(listaCelulas.get(verificarMoeda()).posy < listaCelulas.get(verificarRobo()).posy)
-			return listaCelulas.get(verificarMoeda()).posy - listaCelulas.get(verificarRobo()).posy;
-		return 0;
-	
-	}
 	
 	public void direcoesPercorridas() {
 		int casasAndadasNorte=0;

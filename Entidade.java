@@ -1,9 +1,10 @@
 package Lista4Qst18;
 
-public class Entidade {
+public abstract class Entidade {
 
 	public Plano plano;
 	public int id;
 	public int posx;
 	public int posy;
+	
 }
