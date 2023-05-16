@@ -1,6 +1,5 @@
 package Lista4Qst17;
 
-import java.util.Scanner;
 public class main {
 
 	public static void main(String[] args) {
@@ -11,3 +10,4 @@ public class main {
 		jogodavelha.iniciarJogo();
 	}
 }
+

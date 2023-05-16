@@ -11,11 +11,11 @@ public class JogodaVelha {
 		this.leitor = new Scanner(System.in);
 		tabuleiro = new Celula[3][3];
 		int id=1;
-		for(int i=0; i<=2; i++) {
-			for(int j=0; j<=2;j++,id++) {
+		for(int lin=0; lin<=2; lin++) {
+			for(int col=0; col<=2;col++,id++) {
 				Celula c1=new Celula();
-				tabuleiro[i][j]=c1;
-				tabuleiro[i][j].id=id;
+				tabuleiro[lin][col]=c1;
+				tabuleiro[lin][col].id=id;
 			}
 		}
 	}
@@ -51,7 +51,7 @@ public class JogodaVelha {
 		this.jogador2 = new Jogador(nomejogador2,simbolo2);
 		
 		System.out.printf("O jogador 1 (%s) ficou com o símbolo [%s] e o jogador 2 (%s) ficou com o símbolo [%s]\n\n", nomejogador1,simbolo1, nomejogador2,simbolo2);
-		
+
 		gameplay();
 	}
 	
@@ -99,24 +99,14 @@ public class JogodaVelha {
 		}
 	}
 	
-	public boolean jogadaValida(int posicaoEscolhida) {
-		//if(posicaoEscolhida isnumber)
-		if(posicaoEscolhida>9 || posicaoEscolhida<1) {
-			System.out.printf("Digite uma posição válida (Números de 1 a 9)\n",jogador1.name);
-			return false;
-		}
-		if(retornarPosicaoMatriz(posicaoEscolhida).simbolo!=null || retornarPosicaoMatriz(posicaoEscolhida).simbolo!=null) {
-			System.out.printf("Digite uma posição que ainda não foi jogada\n",jogador1.name);
-			return false;
-		}
-		return true;
-	}
-	public void exibirTabuleiro() {
+	
+	private void exibirTabuleiro() {
 		
 		System.out.printf(" %s | %s | %s \n --------- \n %s | %s | %s \n --------- \n %s | %s | %s \n \n", 
-				this.tabuleiro[0][0].retornarCelula(), this.tabuleiro[0][1].retornarCelula(),this.tabuleiro[0][2].retornarCelula(),
-				this.tabuleiro[1][0].retornarCelula(), this.tabuleiro[1][1].retornarCelula(), this.tabuleiro[1][2].retornarCelula(),
-				this.tabuleiro[2][0].retornarCelula(), this.tabuleiro[2][1].retornarCelula(),this.tabuleiro[2][2].retornarCelula());
+		this.tabuleiro[0][0].retornarCelula(), this.tabuleiro[0][1].retornarCelula(),this.tabuleiro[0][2].retornarCelula(),
+		this.tabuleiro[1][0].retornarCelula(), this.tabuleiro[1][1].retornarCelula(), this.tabuleiro[1][2].retornarCelula(),
+		this.tabuleiro[2][0].retornarCelula(), this.tabuleiro[2][1].retornarCelula(),this.tabuleiro[2][2].retornarCelula());
+		
 	}
 	
 	
@@ -131,16 +121,25 @@ public class JogodaVelha {
 	}
 	
 	
+	private boolean jogadaValida(int posicaoEscolhida) {
+		//if(posicaoEscolhida isnumber)
+		if(posicaoEscolhida>9 || posicaoEscolhida<1) {
+			System.out.printf("Digite uma posição válida (Números de 1 a 9)\n",jogador1.name);
+			return false;
+		}
+		if(retornarPosicaoMatriz(posicaoEscolhida).simbolo!=null || retornarPosicaoMatriz(posicaoEscolhida).simbolo!=null) {
+			System.out.printf("Digite uma posição que ainda não foi jogada\n",jogador1.name);
+			return false;
+		}
+		return true;
+	}
+	
+	
 	//verifica se o jogo terminou
 	private boolean fimdejogo(int quantdejogadas) {
 		
-		//teste do deu velha
-		if(quantdejogadas>8) {
-			System.out.println("Deu velha");
-			return true;
-		}
 		//linha 1
-		if(tabuleiro[0][0].simbolo== tabuleiro[0][1].simbolo && tabuleiro[0][1].simbolo==tabuleiro[0][2].simbolo) {
+		if(tabuleiro[0][0].simbolo == tabuleiro[0][1].simbolo && tabuleiro[0][1].simbolo==tabuleiro[0][2].simbolo) {
 			if(tabuleiro[0][0].simbolo==jogador1.simbolo) {
 				System.out.printf("O jogador 1 [%s] venceu o jogo", jogador1.name);
 				return true;
@@ -226,6 +225,11 @@ public class JogodaVelha {
 				System.out.println("O jogador 2 venceu o jogo");
 				return true;
 			}
+		}
+		//teste do deu velha
+		if(quantdejogadas>8) {
+			System.out.println("Deu velha");
+			return true;
 		}
 		return false;
 	}
