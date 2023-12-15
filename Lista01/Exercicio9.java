@@ -15,7 +15,7 @@ public class Exercicio9 {
 		System.out.println("Digite um valor inteiro para b:");
 		b = leitor.nextInt();
 		
-	    //eu não entendi se é pra verificar se a>10 e a+b==20 é verdadeiro ou se é
+	    	//eu não entendi se é pra verificar se a>10 e a+b==20 é verdadeiro ou se é
 		//para verificar se a>10 é verdadeiro e só depois verificar se a+b==20
 		
 		if(a>10 && a+b==20) 
